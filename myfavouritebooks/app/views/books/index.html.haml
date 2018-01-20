@@ -1,12 +1,17 @@
 -#  This file is app/views/books/index.html.haml
 %h1 All Books
-
+= form_tag books_path, :method => :get do
+  Include:
+  - @all_genres.each do |genre|
+    = genre
+    = check_box_tag "genres[#{genre}]"
+  = submit_tag 'Refresh'
 %table#books
   %thead
     %tr
-      %th Book Title
-      %th Genre
-      %th Publish Date
+      %th{:class => @title_header}= link_to 'Book Title', books_path(:sort => 'title'), :id => 'title_header'
+      %th{:class => @title_header}= link_to 'Genre', books_path(:sort => 'genre'), :id => 'genre_header'
+      %th{:class => @date_header}= link_to 'Publish Date', books_path(:sort => 'publish_date'), :id => 'publish_date_header'
       %th More Info
   %tbody
     - @books.each do |book|

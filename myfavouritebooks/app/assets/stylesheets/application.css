@@ -62,7 +62,7 @@ h1 .title {
   font-weight: bold;
   background-color: wheat;
 }
-#movies th, #movies td {
+#movies td {
   padding: 4px;
   text-align: left;
 }
@@ -76,4 +76,7 @@ form label {
   line-height: 25px;
   font-weight: bold;
   color: maroon;
+}
+#movies th .hilite {
+ background-color: yellow;
 }
