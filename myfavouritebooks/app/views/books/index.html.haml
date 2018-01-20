@@ -15,3 +15,5 @@
         %td= book.genre
         %td= book.publish_date.strftime("%B %d, %Y")
         %td= link_to "More about #{book.title}", book_path(book)
+-# add to end of index.html.haml
+= link_to 'Add new book', new_book_path

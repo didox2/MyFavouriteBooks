@@ -12,5 +12,8 @@
 %h3 Description:
  
 %p#description= @book.description
- 
+
+= link_to 'Edit info', edit_book_path(@book)
+= link_to 'Delete', book_path(@book), :method => :delete
 = link_to 'Back to books list', books_path
+
