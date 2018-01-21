@@ -10,7 +10,7 @@
   %thead
     %tr
       %th{:class => @title_header}= link_to 'Book Title', books_path(:sort => 'title'), :id => 'title_header'
-      %th{:class => @title_header}= link_to 'Genre', books_path(:sort => 'genre'), :id => 'genre_header'
+      %th{:class => @genre_header}= link_to 'Genre', books_path(:sort => 'genre'), :id => 'genre_header'
       %th{:class => @date_header}= link_to 'Publish Date', books_path(:sort => 'publish_date'), :id => 'publish_date_header'
       %th More Info
   %tbody

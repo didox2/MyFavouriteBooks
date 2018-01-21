@@ -1,7 +1,7 @@
 class BooksController < ApplicationController
  
- def index
-  sort = params[:sort] || session[:sort]
+  def index
+    sort = params[:sort] || session[:sort]
     case sort
     when 'title'
      ordering,@title_header = {:title => :asc}, 'hilite'
@@ -24,13 +24,11 @@ class BooksController < ApplicationController
       redirect_to :sort => sort, :genres => @selected_genres and return
     end
     @books = Book.where(genre: @selected_genres.keys).order(ordering)
-  
-  
- end
+  end
  
  def show
-  id = params[:id] # retrieve movie ID from URI route
-  @book = Book.find(id) # look up movie by unique ID
+  id = params[:id] # retrieve book ID from URI route
+  @book = Book.find(id) # look up book by unique ID
   # will render app/views/books/show.html.haml by default
  end
  
@@ -42,8 +40,13 @@ class BooksController < ApplicationController
  def create
   params.require(:book)
   permitted = params[:book].permit(:title,:genre,:publish_date,:description)
-  @book = Book.create!(permitted)
-  redirect_to books_path
+  @book = Book.new(permitted)
+    if @book.save
+      flash[:notice] = "#{@book.title} was successfully created."
+      redirect_to books_path
+    else
+      render 'new' # note, 'new' template can access @book's field values!
+    end
  end
  
  def edit
@@ -53,7 +56,7 @@ class BooksController < ApplicationController
  def update
   @book = Book.find params[:id]
   params.require(:book)
-  permitted = params[:book].permit(:title,:genre,:publish_date,:description)
+  permitted = params[:book].permit(:title,:genre,:publish_date,:description, :author)
   @book.update_attributes!(permitted)
   flash[:notice] = #{@book.title} was successfully updated.
   redirect_to book_path(@book)
@@ -64,6 +67,16 @@ class BooksController < ApplicationController
   @book.destroy
   flash[:notice] = "Book '#{@book.title}' was deleted."
   redirect_to books_path
+ end
+ 
+ def search_similar_books
+  @book = Book.find(params[:id])
+  if @book.author.nil? || @book.author.empty?
+   flash[:warning]= "'#{@book.title}' has no author info"
+   redirect_to books_path
+  else
+   @books = Book.similar_books(@book)
+  end
  end
 
 end
