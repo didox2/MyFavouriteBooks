@@ -13,6 +13,6 @@
       %tr
         %td= book.title 
         %td= book.genre
-        %td= book.publish_date
+        %td= book.publish_date.strftime("%B %d, %Y")
         %td= book.author
         %td= link_to "More about #{book.title}", book_path(book)
