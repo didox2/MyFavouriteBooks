@@ -9,7 +9,7 @@ Background: books in database
   Given the following books exist:
   | title                 | genre           | author       | publish_date |
   | It                    | Horror          | Stephen King |   1986-09-15 |
-  | The Martian           | Science fiction | Andy Weir    |   2014-02-11 |
+  | The Martian           | Fiction         | Andy Weir    |   2014-02-11 |
   | To Kill a Mockingbird | Drama           |              |   1960-07-11 |
   | Carrie                | Horror          | Stephen King |   1974-04-05 |
  

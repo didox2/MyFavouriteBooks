@@ -1,11 +1,16 @@
 -#  This file is app/views/books/index.html.haml
 %h1 All Books
-= form_tag books_path, :method => :get do
+
+ 
+= form_tag books_path, :method => :get, :id => 'genre_form' do
+  = hidden_field_tag "title_sort", true if @title_header
+  = hidden_field_tag ":publish_date_sort", true if @date_header
   Include:
   - @all_genres.each do |genre|
     = genre
-    = check_box_tag "genres[#{genre}]"
-  = submit_tag 'Refresh'
+    = check_box_tag "genres[#{genre}]", 1, @selected_genres.include?(genre), :id => "genres_#{genre}"
+  = submit_tag 'Refresh', :id => 'genres_submit'
+
 %table#books
   %thead
     %tr
